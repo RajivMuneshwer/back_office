@@ -1,0 +1,103 @@
+<style>
+
+  :root{
+
+    --flash-color: hsl(0, 0%, 50% );
+
+  }
+
+  .bar_wrapper{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    height: 40px;
+  }
+
+  .bar{
+
+    display: flex;
+    align-items: center;
+    padding: 1.5px;
+    height: 60%;
+    width: 15%;
+    border: 2px solid #d1d1d1;
+    border-radius: 5px;
+    animation: changeBarColor steps(1) 3s infinite;
+
+
+  }
+
+
+  .block{
+
+    margin: 0.75px;
+    height: 75%;
+    width: 16%;
+    color: rgb(63, 63, 63);
+    background-color: hsl(0, 0%, 50% );
+    animation: loadBlock steps(1) 3s infinite;
+    
+
+
+  }
+
+  div.block:nth-of-type(1){
+    --is-one-on: 1;
+    --is-two-on: 1;
+    --is-three-on: 1;
+    --is-four-on: 1;
+    --is-five-on: 1;
+    --is-six-on: 1;
+  }
+
+  div.block:nth-of-type(2){
+    --is-two-on: 1;
+    --is-three-on: 1;
+    --is-four-on: 1;
+    --is-five-on: 1;
+    --is-six-on: 1;
+  }
+  div.block:nth-of-type(3){
+    --is-three-on: 1;
+    --is-four-on: 1;
+    --is-five-on: 1;
+    --is-six-on: 1;
+  }
+  div.block:nth-of-type(4){
+    --is-four-on: 1;
+    --is-five-on: 1;
+    --is-six-on: 1;
+  }
+  div.block:nth-of-type(5){
+    --is-five-on: 1;
+    --is-six-on: 1;
+  }
+  div.block:nth-of-type(6){
+    --is-six-on: 1;
+  }
+
+  @keyframes loadBlock{
+
+    0% {opacity: 0;}
+    9% {opacity: var(--is-one-on, 0);}
+    25% {opacity: var(--is-two-on, 0);}
+    41% {opacity: var(--is-three-on, 0);}
+    57% {opacity: var(--is-four-on, 0);}
+    73% {opacity: var(--is-five-on, 0);}
+    89% {opacity: var(--is-six-on, 0); background-color: var(--flash-color);}
+
+  }
+
+  @keyframes changeBarColor{
+
+    0%{border: 2px solid #d1d1d1; }
+    89% {border: 2px solid var(--flash-color);} 
+
+  }
+
+
+
+</style>
+

@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+
+    <?!= include('loadingBarCSS'); ?>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');  
+      *{  
+        margin: 0;  
+        padding: 0;  
+        box-sizing: border-box;  
+        font-family: 'Poppins', sans-serif;  
+      }  
+      body{  
+        display: flex;  
+        justify-content: center;  
+        align-items: center;  
+        height: 100vh;  
+        flex-direction: column;  
+      }  
+      .container{  
+        width: 450px;  
+        display: flex;  
+        justify-content: space-between;  
+        flex-wrap: wrap;  
+        margin: 1em 0 0 0;  
+  
+      }  
+      .checkbox{  
+        width: 140px;  
+        height: 40px;  
+        position: relative;  
+        margin: 0.5em 0;  
+      }  
+      .checkbox input{  
+        position: absolute;  
+        cursor: pointer;  
+        width: 100%;  
+        height: 100%;  
+        z-index: 2;  
+        appearance: none;  
+        -webkit-appearance: none;  
+      }
+
+      .box{  
+
+        width: 100%;  
+        height: 100%;  
+        position: absolute;  
+        z-index: 1;  
+        background: hsl(0, 0%, 96%);    
+        border: 2px solid hsl(0, 0%, 81%);  
+        color: hsl(0, 0%, 24%);  
+        border-radius: 5px;  
+        display: flex;  
+        justify-content: center;  
+        align-items: center;  
+        overflow: hidden;  
+        transition: all none;
+        box-shadow: 0 5px #999;
+
+      }
+      .box p{  
+        transition: all none;  
+      }  
+      .checkbox input:checked ~ .box p{  
+        transform: translateY(-30px);  
+      }  
+      .box p::before{  
+        content: attr(data-text);  
+        position: absolute;  
+        transform: translateY(30px);  
+      }  
+      .checkbox input:checked ~ .box p::before{  
+        transform: translateY(30px);  
+        
+      }  
+      .checkbox input:checked ~ .box {  
+        background: #f7f7f7;  
+        border: 2px solid hsl(37,100%,40%);  
+        color: hsl(37,100%,40%); 
+        box-shadow: 0 5px #666; 
+        transform: translateY(4px); 
+      }
+
+
+      .submit {
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial;
+        font-size: 16px;
+        width: 100px;
+        height: 35px;
+        background: #f7f7f7;
+        border-radius: 6px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border: 2px solid #d1d1d1;
+        box-shadow: 0 5px #999;
+        cursor: pointer;
+        color: rgb(63, 63, 63); 
+        margin-top: 1em
+
+      }
+
+      .submit:active {
+        background-color: #f7f7f7;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px); 
+        border: 2px solid hsl(37,100%,40%);  
+        color: hsl(37,100%,40%);
+
+      }
+
+      .block, .bar{
+        --flash-color: hsl(37,100%,40%);
+      }
+
+
+    </style>
+
+  </head>
+  <body onload="load()">
+
+    <form onsubmit="handleSubmit(this)">
+
+      <div class="container" id="container">
+      
+      </div>
+
+
+      <button type="submit" class="submit" onclick="loadingBar()" id="submit">Collect</button>
+
+      <template id="template">
+
+        <div class="bar_wrapper">
+
+          <div class="bar">
+
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block" ></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            
+
+          </div>
+
+        </div>
+
+    </template>
+
+    </form>
+    
+  </body>
+
+
+   <script>
+
+     function loadCashiers(openedCashiers){
+
+      let container_div = document.getElementById("container")
+
+      for (let cashierNum =1; cashierNum < 18; cashierNum++){
+
+        if (!openedCashiers[cashierNum]){
+
+          continue;
+
+        }
+
+        let checkbox_div = document.createElement("div")
+
+        checkbox_div.setAttribute("class", "checkbox")
+
+        container_div.appendChild(checkbox_div)
+
+        let checkbox_input = document.createElement("input")
+
+        checkbox_input.setAttribute("type", "checkbox")
+
+        checkbox_input.setAttribute("name", "cashiers")
+
+        checkbox_input.setAttribute("value", `${cashierNum}`)
+
+        checkbox_div.appendChild(checkbox_input)
+
+        let box_div = document.createElement("div")
+
+        box_div.setAttribute("class", "box")
+
+        checkbox_div.appendChild(box_div)
+
+        let p_box = document.createElement("p")
+
+        p_box.setAttribute("data-text", `Cashier ${cashierNum}`)
+
+        p_box.innerText = `Cashier ${cashierNum}`
+
+        box_div.appendChild(p_box)
+
+
+
+      }
+
+    }
+
+    function load(){
+
+      google.script.run.withSuccessHandler(loadCashiers).getRegsiter()
+
+    }
+
+
+    function handleSubmit(formBlob){
+
+      google.script.run.withSuccessHandler(google.script.host.close).getLonesInfo(formBlob)
+
+    }
+
+    function loadingBar(){
+
+      let template = document.querySelector("#template")
+
+      let cloneContent = template.content.cloneNode(true);
+
+      template.after(cloneContent);
+
+      let submitButton = document.querySelector('#submit');
+
+      submitButton.onclick = null;
+
+      //$("input").attr('disabled', 'disabled');
+
+
+    }
+
+
+  </script>
+</html>

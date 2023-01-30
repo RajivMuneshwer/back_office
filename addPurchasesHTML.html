@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+
+    <?!= include('loadingBarCSS'); ?>
+
+    <style> 
+      @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap'); 
+      *{   
+        font-family: 'Poppins', sans-serif;  
+        box-sizing: border-box;
+        color: hsl(0,0%,24%);
+        
+      }
+
+      input[type=number] {
+        -moz-appearance: textfield;
+      }
+
+      .wrapper{
+
+        height: 40px;
+        width: 100px;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        
+      }
+
+      .plus, .minus, .num {
+
+        border: 2px solid hsl(0, 0%, 81%);
+        height: 100%;
+        width: 33.33%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: hsl(0, 0.0%, 24.7%);
+        box-shadow: 0 5px hsl(0, 0%, 60%);
+        background-color: hsl(0, 0%, 96%);
+
+
+      }
+
+      .plus{
+        
+        border-left: none;
+        border-radius: 0px 5px 5px 0px;
+
+      }
+
+      .minus{
+  
+        border-right: none;
+        border-radius: 5px 0px 0px 5px;
+
+      }
+
+      .plus:active, .minus:active{
+        background-color: hsl(0, 0%, 96%);
+        box-shadow: 0 5px hsl(0, 0%, 40%);
+        transform: translateY(2px); 
+
+
+      }
+
+
+      .plus:active {
+
+        border: 2px solid hsl(219, 80%, 47%);  
+        color: hsl(219, 80%, 47%)
+
+      }
+
+      .minus:active { 
+        border: 2px solid hsl(0, 80%, 47%);  
+        color: hsl(0, 80%, 47%)
+
+      }
+
+      .submit {
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial;
+        font-size: 16px;
+        width: 100px;
+        height: 35px;
+        background: hsl(0, 0%, 96%);
+        border-radius: 6px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border: 2px solid hsl(0, 0%, 81%);
+        box-shadow: 0 5px hsl(0, 0%, 60%);
+        cursor: pointer;
+        color: hsl(0, 0.0%, 24.7%); 
+        margin-top: 1em
+
+      }
+
+      .submit:active {
+        background-color: hsl(0, 0%, 96%);
+        box-shadow: 0 5px hsl(0, 0%, 40%);
+        transform: translateY(4px); 
+        border: 2px solid hsl(219, 80%, 47%);  
+        color: hsl(219, 80%, 47%);
+
+      }
+
+      table {
+      border-collapse: collapse;
+      width: 100%;
+      }
+
+      .currency {
+        display: inline-block;
+        font-size: 16px;
+        -webkit-appearance: textfield !important;
+        -moz-appearance: textfield !important;
+        appearance: textfield !important;
+        position: relative;
+        left: 30px;
+      }
+
+      td, th{
+        text-align: center;
+        vertical-align: center;
+        padding: 15px;
+      }
+
+      .block, .bar{
+        --flash-color: #185ADB;
+      }
+
+
+    </style>
+  </head>
+  <body onload="createTable()">
+
+    <form id="currencyForm" onsubmit="handleFormSubmit(this)">
+
+      <table id="currency_table">
+        <tr>
+          <th>Currency</th>
+          <th>Add</th>
+        </tr>
+
+      </table>
+
+      <button type="submit" class="submit" onclick="loadingBar()" id="submit">Add</button>
+
+      <template id="template">
+
+        <div class="bar_wrapper">
+
+          <div class="bar">
+
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block" ></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            
+
+          </div>
+
+        </div>
+
+    </template>
+
+    </form>
+
+  </body>
+  <script> 
+
+   function minus(value){
+    let inputElement = document.getElementById(value)
+    let current_num = parseInt(inputElement.value)
+    let new_num = current_num-1
+    inputElement.value = new_num
+
+
+
+    if (new_num < 0 ){
+      inputElement.style.color = "#D71717"
+    }
+
+    if (new_num == 0){
+      inputElement.style.color = "#3F3F3F"
+    }
+    
+  }
+
+  function plus(value){
+
+    let inputElement = document.getElementById(value)
+    let current_num = parseInt(inputElement.value)
+    let new_num = current_num+1
+    inputElement.value = new_num
+
+
+
+    if (new_num > 0 ){
+      inputElement.style.color = "#0053EF"
+    }
+
+    if (new_num == 0){
+      inputElement.style.color = "#3F3F3F"
+    }
+
+  }
+
+  function handleFormSubmit(formObject){
+    google.script.run.withSuccessHandler(google.script.host.close).addToPurchases(formObject);
+
+  }
+
+  function createTable() {
+    
+    let table = document.getElementById("currency_table");
+
+    let currencies = ["5", "10", "20", "50", "100", "500", "1000"]
+
+    for (let i = 0; i < currencies.length; i++){
+
+      let tableRow = document.createElement("tr");
+
+      table.appendChild(tableRow);
+
+      let tdOne = document.createElement("td");
+
+      tableRow.appendChild(tdOne);
+
+      let divOne = document.createElement("div");
+
+      divOne.setAttribute("class", "currency");
+
+      divOne.textContent = "$"+`${currencies[i]}`
+
+      tdOne.appendChild(divOne)
+
+      let tdTwo = document.createElement("td");
+
+      tableRow.appendChild(tdTwo);
+
+      let divTwo = document.createElement("div");
+
+      divTwo.setAttribute("class", "wrapper");
+
+      tdTwo.appendChild(divTwo);
+
+      let div_minus = document.createElement("div");
+
+      div_minus.setAttribute("class", "minus");
+
+      div_minus.setAttribute("onclick", `minus('${currencies[i]}')`)
+
+      div_minus.textContent = "−";
+
+      divTwo.appendChild(div_minus);
+
+      let input_num = document.createElement("input");
+
+      input_num.setAttribute("class", "num");
+
+      input_num.setAttribute("type", "number");
+
+      input_num.setAttribute("value",0);
+
+      input_num.setAttribute("name", "currencies");
+
+      input_num.setAttribute("id", `${currencies[i]}`);
+
+      divTwo.appendChild(input_num);
+
+      let div_plus = document.createElement("div");
+
+      div_plus.setAttribute("class", "plus");
+
+      div_plus.setAttribute("onclick", `plus('${currencies[i]}')`);
+
+      div_plus.textContent = "+";
+
+      divTwo.appendChild(div_plus);
+
+    }
+  }
+
+
+  function loadingBar(){
+
+    let template = document.querySelector("#template")
+
+    let cloneContent = template.content.cloneNode(true);
+
+    template.after(cloneContent);
+
+    let submitButton = document.querySelector('#submit');
+
+    submitButton.onclick = null;
+
+    //$("input").attr('disabled', 'disabled');
+
+
+  }
+
+
+  </script>
+
+
+</html>
+
