@@ -26,7 +26,7 @@ function clearSpreadsheet() {
   new coinssheet().clearContents()
   new notessheet().clearContents()
   new floatsheet().clearContents()
-  //new debitsheet().clearContents()
+  new debitsheet().clearContents()
 
 }
 
@@ -78,6 +78,11 @@ function testClear() {
 
   copyDateAndFloat(cashierSheet)
 
+}
+
+function testCashier2() {
+  const sp2 = new cashiersheet(new spreadsheet().spreadSheet.getSheetByName('Cashier2'))
+  copyToLoneSpreadSheets([sp2])
 }
 
 

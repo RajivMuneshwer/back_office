@@ -23,7 +23,7 @@ function getLoneInfo(cashierNum) {
   cashierSheet.insertInChequeLone(loneCashier)
   cashierSheet.insertInCurrencyLone(loneCashier)
   cashierSheet.copyLoneToFloat(loneCashier)
-  //cashierSheet.copyLoneToDebit(loneCashier)
+  cashierSheet.copyLoneToDebit(loneCashier)
 
 }
 

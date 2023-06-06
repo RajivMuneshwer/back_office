@@ -91,7 +91,7 @@ function addInCurrencyFloatNotesAndCoins(cashierSheet){
   addInFloatSheet(cashierSheet);
   addInNotesSheet(cashierSheet);
   addInCoinsSheet(cashierSheet);
-  //addInDebitSheet(cashierSheet);
+  addInDebitSheet(cashierSheet);
 
 }
 
@@ -144,6 +144,8 @@ function sortCashiers(){
   new notessheet().sort()
 
   new coinssheet().sort()
+
+  new debitsheet().sort()
 
 }
 

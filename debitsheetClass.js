@@ -21,6 +21,7 @@ class debitsheet{
   }
 
   insertCashierDebitRB(cashierSheet){
+    Logger.log("here")
     const cashierDebitRBFormula = `=${cashierSheet.name}!${cashierSheet.debitSumRBSpace}`
     const isFormula = true
     insertInRange(this.cashierDebitRBRange, [`=${cashierSheet.number}`, cashierDebitRBFormula], isFormula)
@@ -29,7 +30,7 @@ class debitsheet{
   insertCashierDebitGBTI(cashierSheet){
     const cashierDebitGBTIFormula = `${cashierSheet.name}!${cashierSheet.debitSumGBTISpace}`
     const isFormula = true
-    insertInRange(this.cashierDebitGBTIName, [`=${cashierSheet.number}`, cashierDebitGBTIFormula], isFormula)
+    insertInRange(this.cashierDebitGBTIRange, [`=${cashierSheet.number}`, cashierDebitGBTIFormula], isFormula)
   }
 
   removeCashier(cashierSheet){
@@ -51,7 +52,7 @@ class debitsheet{
   uninsertCashierDebitGBTI(cashierSheet){
     const cashierDebitGBTIFormula = `${cashierSheet.name}!${cashierSheet.debitSumGBTISpace}`
     const isFormula = true
-    uninsertInRange(this.cashierDebitGBTIName, [`=${cashierSheet.number}`, cashierDebitGBTIFormula], isFormula)
+    uninsertInRange(this.cashierDebitGBTIRange, [`=${cashierSheet.number}`, cashierDebitGBTIFormula], isFormula)
   }
 
   sort(){
@@ -66,3 +67,10 @@ class debitsheet{
 
 
 }
+
+
+function testDebit(){
+  Logger.log(new debitsheet().cashierDebitRBRange.getValues())
+}
+
+

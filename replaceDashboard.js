@@ -18,4 +18,6 @@ const getDashboardSheet = () => SpreadsheetApp.getActiveSpreadsheet().getSheetBy
 
 const getCashierNumbers = () => [1, 2, 3, 4, 5, 6 ,7 , 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
 
-const getTest = () => [17]
+const getTest = () => {
+  replaceDashboardForCashier(17, getDashboardSheet())
+}

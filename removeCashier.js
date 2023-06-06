@@ -24,7 +24,7 @@ function removeCashier(cashierNum){
 
     removeFromSheets(cashierSheet)
 
-    register.closeRegister(cashierSheet.number)
+    register.closeRegister(cashierNum)
 
     spreadSheet.deleteCashierSheet(cashierSheet)
 
@@ -35,14 +35,9 @@ function removeCashier(cashierNum){
 
 function isMoneySubmittedFrom(cashierSheet) {
 
-  const submittedBoolean = cashierSheet.totalRange.getValue()
-  
-  ? alertCannotClose(cashierSheet)
-
-  : alertToSendFloatBackFor(cashierSheet)
+  const submittedBoolean = cashierSheet.totalRange.getValue() ? alertCannotClose(cashierSheet) : alertToSendFloatBackFor(cashierSheet)
 
   return submittedBoolean
-
 }
 
 
@@ -70,7 +65,7 @@ function removeFromSheets(cashierSheet){
   new coinssheet().removeCashier(cashierSheet)
   new floatsheet().removeCashier(cashierSheet)
   new notessheet().removeCashier(cashierSheet)
-  //new debitsheet().removeCashier(cashierSheet)
+  new debitsheet().removeCashier(cashierSheet)
 
 }
 

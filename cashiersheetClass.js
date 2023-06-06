@@ -71,11 +71,11 @@ class cashiersheet {
 
     ]
 
-    this.debitRBSpace = 'G28:I38'
+    this.debitRBSpace = 'G28:J46'
     this.debitSumRBSpace = 'I26'
 
-    this.debitGBTISpace = 'L28:N38'
-    this.debitSumGBTISpace = 'N26'
+    this.debitGBTISpace = 'M28:P46'
+    this.debitSumGBTISpace = 'O26'
 
   }
 

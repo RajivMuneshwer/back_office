@@ -4,17 +4,9 @@
 
 openCashier => addInCurrencyFloatNotesAndCoins
 
-removeCashier => removeFromSheets
-
-loneInfo => getLoneInfo
-
-clearSpreadsheet => clearSpreadsheet
-
 *
 
 *make the debit sheet
-
-
 
 *
 

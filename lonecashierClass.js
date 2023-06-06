@@ -15,8 +15,8 @@ class lonecashier {
     this.prevousFloatDateSpace = 'E16'
     this.currencySpace = 'A21:B35';
     this.chequeSpace = 'E21:H35'
-    this.debitRBSpace = 'K6:M16'
-    this.debitGBTISpace = 'K20:M30'
+    this.debitRBSpace = 'K4:N19'
+    this.debitGBTISpace = 'K23:N38'
 
     ////////////////////////////////////////////////
     //For changes in dashboard these are previous space arrangements
@@ -167,6 +167,20 @@ class lonecashier {
     this.chequeRange.setValue(null)
     this.debitRBRange.setValue(null)
     this.debitGBTIRange.setValue(null)
+  }
+
+  cleanSpreadsheet() {
+    const sheets = this.spreadSheet.getSheets()
+    if (sheets.length > 50){
+      for (let i = 100; i < sheets.length ; i++){
+        try{
+          this.spreadSheet.deleteSheet(sheets[i])
+        } catch (error){
+          Logger.log(error)
+        }
+      }
+      return
+    }
   }
 }
 
